@@ -12,15 +12,15 @@
   let loadingSecretsError: string | null = null;
 
   function loadSecrets(data: { error: string } | { content: string }) {
+    loadingSecrets = false;
+
     if ('error' in data) {
-      loadingSecrets = false;
       loadingSecretsError = data.error;
       return;
     }
+    loadingSecretsError = null;
 
     value = data.content;
-    loadingSecrets = false;
-    loadingSecretsError = null;
   }
 
   async function intervalCallback() {
