@@ -46,7 +46,7 @@
 <div class="editorWrapper">
   {#if loadingSecrets || loadingSecretsError}
     <div class="loadingSecrets">
-      {#if loadingSecretsError == 'NOT_FOUND'}
+      {#if loadingSecretsError == 'NOT_FOUND' || (!loadingSecretsError && value.length == 0)}
         <h2 class="subheadDefault">No secrets!</h2>
         <p class="wrapText">
           It seems like you haven't set any secrets.
