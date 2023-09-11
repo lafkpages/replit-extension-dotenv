@@ -38,6 +38,12 @@
   }
 
   async function intervalCallback() {
+    // If the user is editing the file, don't overwrite
+    // editor contents
+    if (edited) {
+      return;
+    }
+
     const data = await readFile(dotenvFile, 'utf8');
     loadSecrets(data);
   }
