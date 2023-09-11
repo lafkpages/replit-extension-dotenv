@@ -3,7 +3,7 @@
   "version": "0",
   "description": "A template for a Replit Extension that uses @replit-svelte/ui for Replit-like components.",
   "longDescription": "A template for a Replit Extension that uses `@replit-svelte/ui` for Replit-like components.",
-  "icon": "/favicon.svg",
+  "icon": "/favicon.png",
   "tools": [
     {
       "name": "Replit UI Svelte",
@@ -13,7 +13,7 @@
   "fileHandlers": [
     {
       "name": "Replit UI Svelte",
-      "icon": "/favicon.svg",
+      "icon": "/favicon.png",
       "handler": "/fileHandler",
       "glob": "**/*"
     }
