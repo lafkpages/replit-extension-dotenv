@@ -12,7 +12,8 @@ hidden = [
   "build",
   ".npmrc",
   "pnpm-lock.yaml",
-  ".prettier*"
+  ".prettier*",
+  "scripts"
 ]
 
 [nix]
