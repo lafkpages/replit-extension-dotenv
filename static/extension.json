@@ -1,8 +1,7 @@
 {
-  "name": "Replit UI Svelte Extension",
-  "version": "0",
-  "description": "A template for a Replit Extension that uses @replit-svelte/ui for Replit-like components.",
-  "longDescription": "A template for a Replit Extension that uses `@replit-svelte/ui` for Replit-like components.",
+  "name": "Copy secrets as .env",
+  "description": "A Replit extension that lets you export and copy all of your secrets as a `.env` file.",
+  "longDescription": "A Replit extension that lets you export and copy all of your secrets as a `.env` file.",
   "icon": "/favicon.png",
   "tools": [
     {
