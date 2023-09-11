@@ -14,5 +14,11 @@
       "path": "/cover.png",
       "label": "preview of extension"
     }
+  ],
+  "scopes": [
+    {
+      "name": "read",
+      "reason": "Read any file in your Repl"
+    }
   ]
 }
