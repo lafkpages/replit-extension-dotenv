@@ -5,7 +5,7 @@
   "icon": "/favicon.png",
   "tools": [
     {
-      "name": "Replit UI Svelte",
+      "name": ".env",
       "handler": "/"
     }
   ],
