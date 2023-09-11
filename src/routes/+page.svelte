@@ -9,7 +9,7 @@
   let loadingSecrets = true;
   let loadingSecretsError: string | null = null;
 
-  onMount(async () => {
+  async function loadSecrets() {
     const data = await readFile('.env', 'utf8');
 
     if ('error' in data) {
@@ -20,7 +20,9 @@
 
     value = data.content;
     loadingSecrets = false;
-  });
+  }
+
+  onMount(loadSecrets);
 </script>
 
 <svelte:head>
