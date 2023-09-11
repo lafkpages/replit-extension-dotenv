@@ -69,7 +69,7 @@
       {/if}
     </div>
   {/if}
-  <textarea disabled={shouldShowOverlay}>{value}</textarea>
+  <textarea disabled={shouldShowOverlay} readonly>{value}</textarea>
 </div>
 
 <style>
