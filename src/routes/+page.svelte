@@ -8,16 +8,19 @@
   const dotenvFile = '.env';
 
   let value = '';
-  let loadingSecrets = true;
+  let state: 'loading' | 'error' | 'ready' = 'loading';
   let loadingSecretsError: string | null = null;
 
-  function loadSecrets(data: { error: string } | { content: string }) {
-    loadingSecrets = false;
+  $: shouldShowOverlay = state != 'ready' || value.length <= 0;
 
-    if ('error' in data) {
+  function loadSecrets(data: { error: string } | { content: string }) {
+    if ('error' in data && typeof data.error == 'string') {
+      state = 'error';
       loadingSecretsError = data.error;
       return;
     }
+
+    state = 'ready';
     loadingSecretsError = null;
 
     value = data.content;
@@ -45,7 +48,7 @@
 <h1 class="headerBig">.env</h1>
 
 <div class="editorWrapper">
-  {#if loadingSecrets || loadingSecretsError || !value}
+  {#if shouldShowOverlay}
     <div class="loadingSecrets">
       {#if loadingSecretsError == 'NOT_FOUND' || (!loadingSecretsError && value.length == 0)}
         <h2 class="subheadDefault">No secrets!</h2>
@@ -62,7 +65,7 @@
       {/if}
     </div>
   {/if}
-  <textarea bind:value disabled={loadingSecrets} />
+  <textarea disabled={shouldShowOverlay}>{value}</textarea>
 </div>
 
 <style>
