@@ -20,6 +20,10 @@
       return;
     }
 
+    if (!('content' in data) || typeof data.content != 'string') {
+      return;
+    }
+
     state = 'ready';
     loadingSecretsError = null;
 
