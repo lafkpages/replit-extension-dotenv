@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
 
   import Loader from '@replit-svelte/ui/icons/Loader.svelte';
 
-  import { watchTextFile } from '@replit/extensions';
+  import { readFile } from '@replit/extensions';
 
   const dotenvFile = '.env';
 
@@ -22,18 +22,15 @@
     loadingSecrets = false;
   }
 
+  let interval = 0;
   onMount(() => {
-    watchTextFile(dotenvFile, {
-      onReady: ({ initialContent }) => {
-        loadSecrets({ content: initialContent });
-      },
-      onChange: ({ latestContent }) => {
-        loadSecrets({ content: latestContent });
-      },
-      onError: (error) => {
-        loadSecrets({ error });
-      },
-    });
+    interval = setInterval(async () => {
+      const data = await readFile(dotenvFile, 'utf8');
+      loadSecrets(data);
+    }, 10000);
+  });
+  onDestroy(() => {
+    clearInterval(interval);
   });
 </script>
 
