@@ -1,3 +1,3 @@
-# Copy secrets as .env
+# .env editor
 
-A Replit extension that lets you export and copy all of your secrets as a `.env` file.
+A Replit extension that lets you import and export your secrets as a `.env` file.
