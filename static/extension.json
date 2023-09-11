@@ -1,6 +1,6 @@
 {
-  "name": "Copy secrets as .env",
-  "description": "A Replit extension that lets you export and copy all of your secrets as a .env file.",
+  "name": ".env editor",
+  "description": "A Replit extension that lets you import and export your secrets as a .env file.",
   "longDescription": "A Replit extension that lets you export and copy all of your secrets as a `.env` file.",
   "icon": "/favicon.png",
   "tools": [
@@ -23,6 +23,18 @@
     {
       "name": "write-exec",
       "reason": "Write to any file in your Repl and execute any code"
+    }
+  ],
+  "features": [
+    {
+      "title": ".env importing",
+      "body": "If you used to use `.env` files in VSCode, now you can use this extension copy over your secrets from there automatically!",
+      "image": null
+    },
+    {
+      "title": ".env exporting",
+      "body": "If you're moving away from Replit (😭) and need to use `.env` files, you can use this extension to quickly copy your secrets and paste them directly into a `.env` file!",
+      "image": null
     }
   ]
 }
