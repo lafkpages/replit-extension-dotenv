@@ -23,12 +23,15 @@
     loadingSecretsError = null;
   }
 
+  async function intervalCallback() {
+    const data = await readFile(dotenvFile, 'utf8');
+    loadSecrets(data);
+  }
+
   let interval = 0;
   onMount(() => {
-    interval = setInterval(async () => {
-      const data = await readFile(dotenvFile, 'utf8');
-      loadSecrets(data);
-    }, 5000);
+    intervalCallback();
+    interval = setInterval(intervalCallback, 5000);
   });
   onDestroy(() => {
     clearInterval(interval);
