@@ -3,15 +3,15 @@
 
   import Loader from '@replit-svelte/ui/icons/Loader.svelte';
 
-  import { readFile } from '@replit/extensions';
+  import { watchTextFile } from '@replit/extensions';
+
+  const dotenvFile = '.env';
 
   let value = '';
   let loadingSecrets = true;
   let loadingSecretsError: string | null = null;
 
-  async function loadSecrets() {
-    const data = await readFile('.env', 'utf8');
-
+  function loadSecrets(data: { error: string } | { content: string }) {
     if ('error' in data) {
       loadingSecrets = false;
       loadingSecretsError = data.error;
@@ -22,7 +22,19 @@
     loadingSecrets = false;
   }
 
-  onMount(loadSecrets);
+  onMount(() => {
+    watchTextFile(dotenvFile, {
+      onReady: ({ initialContent }) => {
+        loadSecrets({ content: initialContent });
+      },
+      onChange: ({ latestContent }) => {
+        loadSecrets({ content: latestContent  });
+      },
+      onError: (error) => {
+        loadSecrets({ error });
+      }
+    });
+  });
 </script>
 
 <svelte:head>
