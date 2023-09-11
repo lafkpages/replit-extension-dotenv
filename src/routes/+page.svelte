@@ -1,40 +1,39 @@
 <script>
-  import Button from '@replit-svelte/ui/Button.svelte';
-  import Plus from '@replit-svelte/ui/icons/Plus.svelte';
-  import { showModal, showToast } from '@replit-svelte/utils';
+  import { onMount } from 'svelte';
 
-  import { messages } from '@replit/extensions';
+  import { showToast } from '@replit-svelte/utils';
+
+  import { readFile } from '@replit/extensions';
+
+  let value = '';
+
+  onMount(async () => {
+    const data = await readFile('.env', 'utf8');
+
+    if ('error' in data) {
+      if (data.error != 'NOT_FOUND') {
+        showToast({
+          text: `Error reading .env file: ${data.error}`,
+          variant:"negative"
+        });
+      }
+      return;
+    }
+
+    value = data.content;
+  });
 </script>
 
 <svelte:head>
-  <title>Replit UI Svelte Extension</title>
+  <title>.env</title>
 </svelte:head>
 
-<h1 class="headerBig">Replit UI Svelte Extension</h1>
+<h1 class="headerBig">.env</h1>
 
-<Button
-  text="My button"
-  on:click={() => {
-    showModal({
-      title: 'Button clicked',
-      text: 'This is a demo Modal text',
-    });
-  }}
-/>
+<textarea bind:value></textarea>
 
-<Button
-  variant="primary"
-  on:click={async () => {
-    // Toast inside this pane
-    showToast({
-      text: 'Example toast 1',
-      variant: 'primary',
-    });
-
-    // Toast outside this pane
-    await messages.showNotice('Example toast 2');
-  }}
->
-  <Plus />
-  Show toast
-</Button>
+<style>
+  textarea {
+    height: 100%;
+  }
+</style>
