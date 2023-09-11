@@ -20,6 +20,7 @@
 
     value = data.content;
     loadingSecrets = false;
+    loadingSecretsError = null;
   }
 
   let interval = 0;
