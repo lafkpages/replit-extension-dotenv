@@ -28,11 +28,11 @@
         loadSecrets({ content: initialContent });
       },
       onChange: ({ latestContent }) => {
-        loadSecrets({ content: latestContent  });
+        loadSecrets({ content: latestContent });
       },
       onError: (error) => {
         loadSecrets({ error });
-      }
+      },
     });
   });
 </script>
@@ -49,8 +49,8 @@
       {#if loadingSecretsError == 'NOT_FOUND' || (!loadingSecretsError && value.length == 0)}
         <h2 class="subheadDefault">No secrets!</h2>
         <p class="wrapText">
-          It seems like you haven't set any secrets.
-          When you do, they'll show up here.
+          It seems like you haven't set any secrets. When you do, they'll show
+          up here.
         </p>
       {:else if loadingSecretsError}
         <h2 class="subheadDefault">Error loading secrets!</h2>
@@ -61,7 +61,7 @@
       {/if}
     </div>
   {/if}
-  <textarea bind:value disabled={loadingSecrets}></textarea>
+  <textarea bind:value disabled={loadingSecrets} />
 </div>
 
 <style>
@@ -89,7 +89,7 @@
   .wrapText {
     max-width: 50%;
   }
-  
+
   textarea {
     width: 100%;
     height: 100%;
