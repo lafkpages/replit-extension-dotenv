@@ -29,18 +29,18 @@
 
 <h1 class="headerBig">.env</h1>
 
-<div class="editor-wrapper">
+<div class="editorWrapper">
   {#if loadingSecrets || loadingSecretsError}
-    <div class="loading-secrets">
+    <div class="loadingSecrets">
       {#if loadingSecretsError == 'NOT_FOUND'}
         <h2 class="subheadDefault">No secrets!</h2>
-        <p>
+        <p class="wrapText">
           It seems like you haven't set any secrets.
           When you do, they'll show up here.
         </p>
       {:else if loadingSecretsError}
         <h2 class="subheadDefault">Error loading secrets!</h2>
-        <code>{loadingSecretsError}</code>
+        <code class="wrapText">{loadingSecretsError}</code>
       {:else}
         <Loader />
         <h2 class="subheadDefault">Loading secrets</h2>
@@ -51,13 +51,13 @@
 </div>
 
 <style>
-  .editor-wrapper {
+  .editorWrapper {
     width: 100%;
     height: 100%;
     position: relative;
   }
 
-  .loading-secrets {
+  .loadingSecrets {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -69,6 +69,11 @@
     align-items: center;
     gap: var(--space-4);
     background-color: var(--background-overlay);
+    text-align: center;
+  }
+
+  .wrapText {
+    max-width: 50%;
   }
   
   textarea {
