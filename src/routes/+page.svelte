@@ -32,7 +32,13 @@
 <div class="editor-wrapper">
   {#if loadingSecrets || loadingSecretsError}
     <div class="loading-secrets">
-      {#if loadingSecretsError}
+      {#if loadingSecretsError == 'NOT_FOUND'}
+        <h2 class="subheadDefault">No secrets!</h2>
+        <p>
+          It seems like you haven't set any secrets.
+          When you do, they'll show up here.
+        </p>
+      {:else if loadingSecretsError}
         <h2 class="subheadDefault">Error loading secrets!</h2>
         <code>{loadingSecretsError}</code>
       {:else}
