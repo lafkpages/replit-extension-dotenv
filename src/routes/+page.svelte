@@ -6,13 +6,17 @@
 
   import { showToast } from '@replit-svelte/utils';
 
-  import { readFile } from '@replit/extensions';
+  import { readFile, writeFile } from '@replit/extensions';
 
   const dotenvFile = '.env';
+
+  let editor: HTMLTextAreaElement | null = null;
 
   let value = '';
   let state: 'loading' | 'error' | 'ready' = 'loading';
   let loadingSecretsError: string | null = null;
+
+  let edited = false;
 
   $: shouldShowOverlay = state != 'ready' || value.length <= 0;
 
@@ -57,35 +61,64 @@
 <header>
   <h1 class="headerBig">.env</h1>
 
-  <Button
-    variant="primary"
-    on:click={() => {
-      copyButtonState = 'copying';
+  <div class="button-row">
+    <Button
+      variant="primary"
+      disabled={!edited}
+      on:click={() => {
+        if (!editor) {
+          return;
+        }
 
-      navigator.clipboard
-        .writeText(value)
-        .then(() => {
-          copyButtonState = 'copied';
-          setTimeout(() => {
-            copyButtonState = 'copy';
-          }, 1000);
-        })
-        .catch((err) => {
-          copyButtonState = 'copy';
+        writeFile(dotenvFile, editor.value).then((data) => {
+          if ('error' in data && typeof data.error == 'string') {
+            showToast({
+              text: `Error saving secrets: ${data.error}`,
+              variant: 'negative',
+            });
+            return;
+          }
 
-          showToast({
-            text: err,
-            variant: 'negative',
-          });
+          if (editor) {
+            value = editor.value;
+          }
+          edited = false;
         });
-    }}
-  >
-    {{
-      copy: 'Copy',
-      copying: 'Copying...',
-      copied: 'Copied!',
-    }[copyButtonState]}
-  </Button>
+      }}
+    >
+      Save
+    </Button>
+
+    <Button
+      variant="primary"
+      on:click={() => {
+        copyButtonState = 'copying';
+
+        navigator.clipboard
+          .writeText(value)
+          .then(() => {
+            copyButtonState = 'copied';
+            setTimeout(() => {
+              copyButtonState = 'copy';
+            }, 1000);
+          })
+          .catch((err) => {
+            copyButtonState = 'copy';
+
+            showToast({
+              text: err,
+              variant: 'negative',
+            });
+          });
+      }}
+    >
+      {{
+        copy: 'Copy',
+        copying: 'Copying...',
+        copied: 'Copied!',
+      }[copyButtonState]}
+    </Button>
+  </div>
 </header>
 
 <div class="editorWrapper">
@@ -106,7 +139,18 @@
       {/if}
     </div>
   {/if}
-  <textarea disabled={shouldShowOverlay} readonly>{value}</textarea>
+  <textarea
+    bind:this={editor}
+    disabled={shouldShowOverlay}
+    on:input={(e) => {
+      if (!editor) {
+        e.preventDefault();
+        return;
+      }
+
+      edited = value != editor.value;
+    }}>{value}</textarea
+  >
 </div>
 
 <style>
