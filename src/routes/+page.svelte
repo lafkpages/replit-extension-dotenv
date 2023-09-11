@@ -4,6 +4,8 @@
   import Button from '@replit-svelte/ui/Button.svelte';
   import Loader from '@replit-svelte/ui/icons/Loader.svelte';
 
+  import { showToast } from '@replit-svelte/utils';
+
   import { readFile } from '@replit/extensions';
 
   const dotenvFile = '.env';
@@ -44,6 +46,8 @@
   onDestroy(() => {
     clearInterval(interval);
   });
+
+  let copyButtonState: 'copy' | 'copying' | 'copied' = 'copy';
 </script>
 
 <svelte:head>
@@ -53,8 +57,28 @@
 <header>
   <h1 class="headerBig">.env</h1>
 
-  <Button variant="primary">
-    Copy
+  <Button variant="primary" on:click={() => {
+    copyButtonState = 'copying';
+
+    navigator.clipboard.writeText(value).then(() => {
+      copyButtonState = 'copied';
+      setTimeout(() => {
+        copyButtonState = 'copy';
+      }, 1000);
+    }).catch((err) => {
+      copyButtonState = 'copy';
+
+      showToast({
+        text: err,
+        variant: 'negative'
+      });
+    });
+  }}>
+    {{
+      copy: 'Copy',
+      copying: 'Copying...',
+      copied: 'Copied!'
+    }[copyButtonState]}
   </Button>
 </header>
 
