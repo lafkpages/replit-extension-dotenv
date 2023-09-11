@@ -9,14 +9,6 @@
       "handler": "/"
     }
   ],
-  "fileHandlers": [
-    {
-      "name": "Replit UI Svelte",
-      "icon": "/favicon.png",
-      "handler": "/fileHandler",
-      "glob": "**/*"
-    }
-  ],
   "coverImages": [
     {
       "path": "/cover.png",
