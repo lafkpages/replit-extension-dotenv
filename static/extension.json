@@ -19,6 +19,10 @@
     {
       "name": "read",
       "reason": "Read any file in your Repl"
+    },
+    {
+      "name": "write-exec",
+      "reason": "Write to any file in your Repl and execute any code"
     }
   ]
 }
