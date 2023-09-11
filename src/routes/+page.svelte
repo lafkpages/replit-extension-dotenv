@@ -27,7 +27,7 @@
     interval = setInterval(async () => {
       const data = await readFile(dotenvFile, 'utf8');
       loadSecrets(data);
-    }, 10000);
+    }, 5000);
   });
   onDestroy(() => {
     clearInterval(interval);
@@ -41,7 +41,7 @@
 <h1 class="headerBig">.env</h1>
 
 <div class="editorWrapper">
-  {#if loadingSecrets || loadingSecretsError}
+  {#if loadingSecrets || loadingSecretsError || !value}
     <div class="loadingSecrets">
       {#if loadingSecretsError == 'NOT_FOUND' || (!loadingSecretsError && value.length == 0)}
         <h2 class="subheadDefault">No secrets!</h2>
