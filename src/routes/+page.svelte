@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
 
+  import Button from '@replit-svelte/ui/Button.svelte';
   import Loader from '@replit-svelte/ui/icons/Loader.svelte';
 
   import { readFile } from '@replit/extensions';
@@ -49,7 +50,13 @@
   <title>.env</title>
 </svelte:head>
 
-<h1 class="headerBig">.env</h1>
+<header>
+  <h1 class="headerBig">.env</h1>
+
+  <Button variant="primary">
+    Copy
+  </Button>
+</header>
 
 <div class="editorWrapper">
   {#if shouldShowOverlay}
@@ -73,6 +80,12 @@
 </div>
 
 <style>
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .editorWrapper {
     width: 100%;
     height: 100%;
