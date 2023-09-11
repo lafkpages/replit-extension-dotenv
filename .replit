@@ -54,4 +54,4 @@ start = "svelteserver --stdio"
 isExtension = true
 buildCommand = "./scripts/build.sh"
 outputDirectory = "build"
-
+extensionID = "1f6a71c3-5db7-4286-8ec9-27c0ba6ea6a2"
