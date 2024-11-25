@@ -16,7 +16,7 @@
     "@replit-svelte/utils": "^1.1.2",
     "@replit/extensions": "^1.8.0",
     "@sveltejs/adapter-static": "^2.0.2",
-    "@sveltejs/kit": "^1.21.0",
+    "@sveltejs/kit": "^2.8.3",
     "@types/cookie": "^0.5.1",
     "prettier": "^2.8.8",
     "prettier-plugin-svelte": "^2.10.1",
